@@ -8,9 +8,9 @@ var globalScores;
 var roundScore;
 var diceDom = document.querySelector('.dice');
 
-newGame();
+initGame();
 
-function newGame() {
+function initGame() {
     activePlayer = 0;
     globalScores = [0, 0];
     roundScore = 0;
@@ -100,4 +100,4 @@ function switchToNextPlayer() {
 }
 
 //Shine togloom ehluuleh buttonii event-listener
-document.querySelector('.btn-new').addEventListener('click', newGame());
+document.querySelector('.btn-new').addEventListener('click', initGame());
