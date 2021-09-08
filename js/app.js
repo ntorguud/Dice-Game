@@ -86,7 +86,7 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
     document.getElementById('score-' + activePlayer).textContent = globalScores[activePlayer];
 
     //100 onoo hursen bol hojno
-    if(globalScores[activePlayer] >= 10) {
+    if(globalScores[activePlayer] >= 100) {
         //Togloomiig duussan tuluvt oruulna.
         isNewGame = false;
         //WINNER gesen text-iig gargana.
