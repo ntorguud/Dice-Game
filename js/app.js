@@ -7,10 +7,14 @@ var globalScores;
 //Toglogchiin eeljindee tsugluulj bga onoog hadgalah var
 var roundScore;
 var diceDom = document.querySelector('.dice');
+//Togloom duussan esehiig hadgalah tuluv-iin var
+var isNewGame;
 
 initGame();
 
-function initGame() {
+function initGame() { //cmd + function ==== function ruu userne.
+    //Game is started gedeg tuluvt oruulna.
+    isNewGame = true;
     activePlayer = 0;
     globalScores = [0, 0];
     roundScore = 0;
@@ -24,38 +28,53 @@ function initGame() {
     document.getElementById('score-0').textContent = '0'; document.getElementById('score-1').textContent = '0';
     document.getElementById('current-0').textContent = '0';
     document.getElementById('current-1').textContent = '0';
+    //Players' names-iig togloom duussanii daraa butsaaj delgetsen deer gargah
+    document.getElementById('name-0').textContent = 'Player 1';
+    document.getElementById('name-1').textContent = 'Player 2';
+    //Ulaan ungiig arilgah gej bna.
+    document.querySelector('.player-0-panel').classList.remove('winner');
+    document.querySelector('.player-1-panel').classList.remove('winner');
+
+    document.querySelector('.player-0-panel').classList.remove('active');
+    document.querySelector('.player-1-panel').classList.remove('active');
+    //Dunguj togloom shineer ehlehed active red dot garch irj active playeriig zaah estoi
+    document.querySelector('.player-0-panel').classList.add('active');
 }
 
-//Roll Dice tovchoo ajilladag bolgoh event-listener
-/* <button class="btn-roll"><i class="ion-ios-loop"></i>Roll dice</button> */
+//Roll Dice tovchoo ajilladag bolgoh- shoo shideh event-listener
 document.querySelector('.btn-roll').addEventListener('click', function() { //this is a callback function
-    //Shoonii ali talaaraa buusniig hadgalah var, random 1-6 values should be kept in this var
-    var diceNumber = Math.ceil(Math.random() * 6); //Why 0.88977 garch irj bna ve?
-
-    //Dice-nii zurgiig web deer gargaj irne.
-    diceDom.style.display ='block';
-
-    //Random number-n dice-iin zurgiig gargaj irne.
-    diceDom.src = 'images/dice-' + diceNumber + '.png';
-
-    //Shidsen toog active playeriin onoon deer nemeh event-listener, except 1. 
-    if(diceNumber !== 1) {
-        //Add that number as a score to an active player.
-        roundScore = roundScore + diceNumber;
-        document.getElementById('current-' + activePlayer).textContent = roundScore;
+    if(isNewGame) { //=== true
+        //Shoonii ali talaaraa buusniig hadgalah var, random 1-6 values should be kept in this var
+        var diceNumber = Math.ceil(Math.random() * 6); //Why 0.88977 garch irj bna ve?
+    
+        //Dice-nii zurgiig web deer gargaj irne.
+        diceDom.style.display ='block';
+    
+        //Random number-n dice-iin zurgiig gargaj irne.
+        diceDom.src = 'images/dice-' + diceNumber + '.png';
+    
+        //Shidsen toog active playeriin onoon deer nemeh event-listener, except 1. 
+        if(diceNumber !== 1) {
+            //Add that number as a score to an active player.
+            roundScore = roundScore + diceNumber;
+            document.getElementById('current-' + activePlayer).textContent = roundScore;
+        } else {
+            //1 gedeg number can change players' turn and make score 0. in the screen.
+    
+            //We still need to make score 0 in the saved container, which is roundScore
+            switchToNextPlayer(); //DRY- Don't Repeat Yourself
+        }
     } else {
-        //1 gedeg number can change players' turn and make score 0. in the screen.
-
-        //We still need to make score 0 in the saved container, which is roundScore
-        switchToNextPlayer(); //DRY- Don't Repeat Yourself
-    }
+        alert("Game Over!!! Press 'New Game' button.");
+    }  
 } //It can be anonymous function, cuz it's used only once
 );
 
 
 //Hold buttonii event-listener
 document.querySelector('.btn-hold').addEventListener('click', function() {
-    //Active player-iin eeljiin onoog globalScores deer nemne.
+    if(isNewGame) {
+        //Active player-iin eeljiin onoog globalScores deer nemne.
 
             // if(activePlayer === 0) {
             //     globalScores[0] = globalScores[0] + roundScore;
@@ -68,6 +87,8 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
 
     //100 onoo hursen bol hojno
     if(globalScores[activePlayer] >= 100) {
+        //Togloomiig duussan tuluvt oruulna.
+        isNewGame = false;
         //WINNER gesen text-iig gargana.
         document.getElementById('name-' + activePlayer).textContent = 'WINNER!';
 
@@ -76,6 +97,9 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
         document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
     } 
     switchToNextPlayer();
+    } else {
+        alert("Game Over!!! Press 'New Game' button.");
+    }   
 });
 
 //This function helps to change player's turn
@@ -100,4 +124,4 @@ function switchToNextPlayer() {
 }
 
 //Shine togloom ehluuleh buttonii event-listener
-document.querySelector('.btn-new').addEventListener('click', initGame());
+document.querySelector('.btn-new').addEventListener('click', initGame);
