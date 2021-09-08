@@ -86,7 +86,7 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
     document.getElementById('score-' + activePlayer).textContent = globalScores[activePlayer];
 
     //100 onoo hursen bol hojno
-    if(globalScores[activePlayer] >= 100) {
+    if(globalScores[activePlayer] >= 10) {
         //Togloomiig duussan tuluvt oruulna.
         isNewGame = false;
         //WINNER gesen text-iig gargana.
@@ -94,7 +94,8 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
 
         document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
 
-        document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
+        document.querySelector('.player-0-panel').classList.remove('active');
+        document.querySelector('.player-1-panel').classList.remove('active');
     } 
     switchToNextPlayer();
     } else {
