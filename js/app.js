@@ -43,9 +43,9 @@ function initGame() { //cmd + function ==== function ruu userne.
 
 //Roll Dice tovchoo ajilladag bolgoh- shoo shideh event-listener
 document.querySelector('.btn-roll').addEventListener('click', function() { //this is a callback function
-    if(isNewGame) { //=== true
+    if(isNewGame) { 
         //Shoonii ali talaaraa buusniig hadgalah var, random 1-6 values should be kept in this var
-        var diceNumber = Math.ceil(Math.random() * 6); //Why 0.88977 garch irj bna ve?
+        var diceNumber = Math.ceil(Math.random() * 6); 
     
         //Dice-nii zurgiig web deer gargaj irne.
         diceDom.style.display ='block';
